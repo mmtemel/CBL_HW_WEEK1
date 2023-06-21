@@ -64,3 +64,70 @@ Reads the next record from the `ACCT-REC` file. If the end of file is reached, i
 
 ### WRITE-RECORD
 Formats the fields from the current `ACCT-REC` record and moves them to the corresponding fields in the `PRINT-REC` record. Then it writes the `PRINT-REC` record to the `PRINT-LINE` file.
+
+
+## Job Information
+This job (COBHW01) is executed with the following parameters:
+- Job ID: 1
+- NOTIFY: &SYSUID
+
+## License
+This code is subject to the CC-BY-4.0 license. The contributors to the COBOL Programming Course hold the copyright.
+
+## Compilation and Execution
+To compile the COBOL program, execute the following steps:
+
+1. Execute the IGYWCL utility.
+
+//COBRUN EXEC IGYWCL
+
+2. Specify the location of the source code in the COBOL.SYSIN DD statement.
+
+//COBOL.SYSIN DD DSN=&SYSUID..CBL(COBHW01),DISP=SHR
+
+3. Specify the location to store the load module in the LKED.SYSLMOD DD statement.
+
+//LKED.SYSLMOD DD DSN=&SYSUID..LOAD(COBHW01),DISP=SHR
+
+To execute the COBHW01 program, use the following job steps:
+
+1. Check the return code (RC) from the compilation step. If RC = 0, proceed with the execution.
+
+// IF RC = 0 THEN
+
+2. Execute the COBHW01 program.
+
+//RUN EXEC PGM=COBHW01
+
+3. Provide the necessary input and output files:
+
+- STEPLIB: Specify the location of the load module.
+
+//STEPLIB DD DSN=&SYSUID..LOAD,DISP=SHR
+
+- ACCTREC: Input file containing account records.
+
+//ACCTREC DD DSN=&SYSUID..DATA,DISP=SHR
+
+- PRTLINE: Output file for formatted records. If the file does not exist, it will be created. If it exists, its contents will be deleted.
+
+//PRTLINE DD DSN=&SYSUID..HW01.OUTPUT,DISP=(NEW,CATLG,DELETE),
+// SPACE=(CYL,(10,5))
+
+4. Specify the destination for system output messages.
+
+- SYSOUT: Output messages will be directed to the system output.
+
+//SYSOUT DD SYSOUT=*,OUTLIM=15000
+
+5. Specify DUMMY for dump datasets.
+
+//CEEDUMP DD DUMMY
+//SYSUDUMP DD DUMMY
+
+6. Close the IF statement.
+
+// ELSE
+// ENDIF
+
+**Note:** Make sure to update the dataset names (&SYSUID) with your appropriate values to ensure proper file access and allocation.
