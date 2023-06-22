@@ -20,8 +20,8 @@ The program defines the file structures and record layouts in this section.
   - Record Format: Fixed-length (F)
   - Record Layout:
     - `ACCT-NO-O`: 8 characters (PIC X(8))
-    - `ACCT-LIMIT-O`: Currency amount field with dollar sign and comma formatting (PIC $$,$$$,$$9.99)
-    - `ACCT-BALANCE-O`: Currency amount field with dollar sign and comma formatting (PIC $$,$$$,$$9.99)
+    - `ACCT-LIMIT-O`: Currency amount field with dollar sign and comma formatting
+    - `ACCT-BALANCE-O`: Currency amount field with dollar sign and comma formatting
     - `LAST-NAME-O`: 20 characters (PIC X(20))
     - `FIRST-NAME-O`: 15 characters (PIC X(15))
     - `COMMENTS-O`: 50 characters (PIC X(50))
